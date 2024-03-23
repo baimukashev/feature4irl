@@ -1,0 +1,84 @@
+# @package _global_
+# Env parameters
+env_name: Pendulum-v1
+
+wrapper_class: PendulumWrapper
+wrapper_kwargs: {
+                "reward_path": None,
+                "env_name": Pendulum-v1, 
+                "scaler_path": None,
+                "configs": None
+                }
+
+# Agent parameters
+agent_name: sb_sac
+scaler_params: None
+
+#We recommend using a `batch_size` that is a factor of `n_steps * n_envs`.
+n_envs: 4
+batch_size: 64
+n_cpu: ${n_envs}
+policy_type: "MlpPolicy"
+# pi_size: 64
+vf_size: ${pi_size}
+policy_kwargs: 
+n_steps: 1024
+n_epochs: 10
+verbose: 0
+gae_lambda: 0.95
+tensorboard_log: 'checkpoints/${exp_name}/logs/'
+use_sde: False
+sde_sample_freq: 4
+
+# reset for expert only 
+init_total_timesteps: 8e4 # 1.5e5
+init_learning_rate: 1e-3
+init_gamma: 0.9
+init_pi_size: 64
+
+# best params
+# init_total_timesteps: 200k
+# init_learning_rate: 1e-3 # 0.0005 - 0.001
+# init_gamma: 0.92
+# init_pi_size: 64 128
+
+learning_rate: ${init_learning_rate}
+total_timesteps: ${init_total_timesteps}
+gamma: ${init_gamma}
+pi_size: ${init_pi_size}
+
+path_to_expert: 'results/Pendulum-v1___group_test_run1/run_scarlet-glade-713/files/ppo_expert'  
+path_to_data : 'results/Pendulum-v1___group_test_run1/run_scarlet-glade-713/files/'           
+
+# Algo parameters
+algo_name: maxent
+
+d_states: 2
+
+lr : 0.5
+alpha_decay: 0.97
+gamma_feat: 0.9
+epochs: 100
+
+len_traj: 200
+
+n_trajs: 200
+samples_per_state: 1
+
+# MAKE sure init params ON for IRL       
+# self.agent = self.create_agent(use_init_params=True)
+
+# sweep parameters
+# hydra:
+#   sweeper:
+#     params:
+#       lr: range(0.1, 0.8, 0.1)
+#       gamma_feat: range(0.92, 1, 0.02)
+      
+      # n_trajs: choice(100, 200, 300)
+      # epochs: choice(30, 40, 50)
+
+      # total_timesteps: choice(1e5, 2e5, 5e5, 9e5)
+      # learning_rate:  choice(5e-4, 1e-3, 2e-3, 5e-3)
+      # gamma: range(0.90, 1, 0.02)
+      # pi_size:  choice(64, 96, 128, 256)

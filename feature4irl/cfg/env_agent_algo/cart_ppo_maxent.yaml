@@ -1,0 +1,86 @@
+# @package _global_
+# Env parameters
+env_name: CartPole-v1
+
+wrapper_class: CartPoleWrapper
+wrapper_kwargs: {
+                  "reward_path": None,
+                  "env_name": CartPole-v1, 
+                  "scaler_path": None,
+                  "configs": None
+                  }
+
+scaler_params: None
+
+# Agent Policy  parameters
+agent_name: sb_ppo
+
+n_envs: 8
+batch_size: 128 # 246
+n_cpu: ${n_envs}
+policy_type: "MlpPolicy"
+# pi_size: 64
+vf_size: ${pi_size}
+policy_kwargs: 
+n_steps: 32
+n_epochs: 20
+verbose: 0
+gae_lambda: 0.8
+tensorboard_log: 'checkpoints/${exp_name}/logs/'
+use_sde: False
+sde_sample_freq: 4
+
+# reset for expert only 
+init_total_timesteps: 1e5
+init_learning_rate: 2e-3
+init_gamma: 0.97
+init_pi_size: 96
+
+learning_rate: ${init_learning_rate}
+total_timesteps: ${init_total_timesteps}
+gamma: ${init_gamma}
+pi_size: ${init_pi_size}
+
+# best params
+# init_total_timesteps: 200k
+# init_learning_rate: 0.001 , 0.002
+# init_gamma: 0.97
+# init_pi_size: 64 128
+
+path_to_expert : 'results/CartPole-v1___group_test_run2/run_flowing-mountain-300/files/ppo_expert'
+path_to_data : 'results/CartPole-v1___group_test_run2/run_flowing-mountain-300/files/'
+
+# Algo parameters
+algo_name: maxent
+
+d_states: 4
+feats_selected: []
+feats_method: 'proposed' # random
+
+len_traj: 500
+
+lr : 0.5
+alpha_decay: 0.97
+gamma_feat: 1.0
+epochs: 100
+
+n_trajs: 200
+samples_per_state: 1
+
+
+# sweep parameters
+# hydra:
+#   sweeper:
+#     params:
+#       lr: range(0.1, 0.8, 0.1)
+#       gamma_feat: range(0.92, 1, 0.02)
+
+# n_trajs: choice(100, 200, 300)
+# epochs: choice(30, 40, 50)
+# samples_per_state: choice(100, 150, 200)
+
+# # rl
+# total_timesteps: choice(1e5, 2e5, 5e5)
+# learning_rate:  choice(5e-4, 1e-3, 2e-3, 5e-3)
+# pi_size:  choice(64, 96, 128, 256)
+# gamma: range(0.95, 1, 0.01)

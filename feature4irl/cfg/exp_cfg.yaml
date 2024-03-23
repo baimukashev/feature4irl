@@ -1,0 +1,109 @@
+defaults:
+    - _self_
+    - env_agent_algo: high_ppo_maxent
+
+#     - override hydra/sweeper: optuna
+#     - override hydra/sweeper/sampler: random  # tpe
+#     - override hydra/launcher: ray # submitit_local # joblib # ray
+
+#     # - override hydra/hydra_logging: disabled
+#     # - override hydra/job_logging: disabled
+
+# hydra:
+#   sweeper:
+#     sampler:
+#       seed: 123
+#     direction: min
+#     study_name: main
+#     storage: null
+#     n_trials: 20     # total sweep runs
+#     n_jobs: 4
+
+
+env_name: ${env_name}
+agent_name: ${agent_name}
+algo_name: ${algo_name}
+exp_name: ${env_name}___group_${group_name}/run_default
+
+# common params
+seed: 777
+device: 'cuda'
+bc_only: False
+fast: False
+
+ratio_divergence: 0.1
+
+
+# training: True
+log_freq : 1
+testing: True
+save_freq : 5
+test_epoch: 5
+test_num: 10
+
+load_expert: True
+load_data: True
+
+feats_selected: []
+feats_method: 'proposed' # random # first # all # manual # other
+normalize_feats: False
+
+# wandb
+track: True
+use_wandb: True 
+wandb_entity: 'baimukashev'
+wandb_project_name: feat4irl___${env_name}
+group_name: default
+notes: ''
+sync_tb: True 
+render: False
+
+# parallelization
+n_threads: 10       # joblib data collection
+
+
+
+
+
+run_suffix: 0
+results_path: ''
+hydra_config: ''
+
+
+# ref: https://stackoverflow.com/questions/65104134/disable-file-output-of-hydra
+# TODO possible error wuith wrappers https://github.com/DLR-RM/stable-baselines3/issues/894
+#     https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/hyperparams/ppo.yml           
+
+#   launcher:
+#     ray:
+#       init:
+#         num_cpus: 5  # to each
+#         num_gpus: 2
+
+
+    # max_failure_rate: 0.0
+
+
+# submitit
+# hydra:
+  # launcher:
+  #   timeout_min: 30 # 3000
+  #   cpus_per_task: 12
+  #   gpus_per_node: 0
+  #   tasks_per_node: 2
+  #   mem_gb: 64
+  #   nodes: 1
+
+#   launcher:
+#     ray:
+#       init:
+        # num_cpus: 12  # to each
+        # num_gpus: 0
+
+  # output_subdir: null  
+  # run:  
+  #   dir: .
+                                                                                                      
+
+                           
+                                                              
