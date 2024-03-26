@@ -1,7 +1,7 @@
 # feature-irl
 
 ## Overview
-This repo is the source code for the paper: 
+This repo is the source code for the paper: [Automated Feature Selection for Inverse Reinforcement Learning](http://arxiv.org/abs/2403.15079)
 
 ## Installation
 
