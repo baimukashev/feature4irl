@@ -62,17 +62,9 @@ render: False
 n_threads: 10       # joblib data collection
 
 
-
-
-
 run_suffix: 0
 results_path: ''
 hydra_config: ''
-
-
-# ref: https://stackoverflow.com/questions/65104134/disable-file-output-of-hydra
-# TODO possible error wuith wrappers https://github.com/DLR-RM/stable-baselines3/issues/894
-#     https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/hyperparams/ppo.yml           
 
 #   launcher:
 #     ray:

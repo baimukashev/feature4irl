@@ -37,11 +37,9 @@ class Agent:
         policy=None,
     ):
 
-        # print('Testing....')
         rewards = []
 
         # env = test_env.envs[0]
-
         model = self.policy
 
         all_feats = []
@@ -49,7 +47,6 @@ class Agent:
         for idx in range(1):
 
             env = test_env.envs[0]
-            #   print(env)
 
             if self.cfg["render"]:
 
@@ -60,12 +57,6 @@ class Agent:
                 env.metadata["offscreen_rendering"] = True
 
                 video_path = f"{video_dir}_videos/seed_{seed}_+_{idx}"
-
-                # reacher
-                # env = gym.make(self.cfg["env_name"], render_mode="rgb_array")
-                # from gymnasium.experimental.wrappers.rendering import RecordVideoV0
-                # env = RecordVideoV0(env, video_path, disable_logger=True,
-                #                     episode_trigger=lambda e: True,)
 
             ind = 0
             done = False

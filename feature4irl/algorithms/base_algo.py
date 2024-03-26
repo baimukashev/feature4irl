@@ -5,9 +5,6 @@ from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecEnv
 from feature4irl.envs.wrappers import *
 
-# TODO replace eval?
-
-
 class BaseAlgo(object, metaclass=ABCMeta):
     """Abstract agent class."""
 
