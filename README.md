@@ -1,18 +1,18 @@
-# feature-irl
+# Automated Feature Selection for Inverse Reinforcement Learning
 
 ## Overview
-This repo is the source code for the paper: [Automated Feature Selection for Inverse Reinforcement Learning](http://arxiv.org/abs/2403.15079)
+This repository contains the source code and data for the paper [Automated Feature Selection for Inverse Reinforcement Learning](http://arxiv.org/abs/2403.15079)
 
 ## Installation
 
-* Run `conda env create -f environment.yml && conda activate irl_feat` to create and activate a new python environment
-
-* Run `git clone git@github.com:baimukashev/feature4irl.git`
-
+* Clone the repo `git clone git@github.com:baimukashev/feature4irl.git`
 * Run `cd feature4irl`
+* Run `pip install -r requirements.txt`
+* Optionally, setup [Weight and Biases](https://docs.wandb.ai/quickstart) for tracking the experiments.
 
-* Run `./{acr, pend, cart}.sh` for training all baselines for corresponding task or select particular from the bash script.
-    
-## Misc
+## How to run the code
+* Run `experiments./{acr, pend, cart}.sh` for training all baselines for each task respectively.
+* Results of the experiments including the simulation videos, data are in `./checkpoints` folder.
 
-* The `./checkpoints` folder contains all the results and simulation videos.
+## Configuration
+Configuration files for each environment are located in ```feature4irl/cfg/```.
