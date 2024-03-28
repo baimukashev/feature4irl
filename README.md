@@ -11,8 +11,8 @@ This repository contains the source code and data for the paper [Automated Featu
 * Optionally, setup [Weight and Biases](https://docs.wandb.ai/quickstart) for tracking the experiments.
 
 ## How to run the code
-* Run `experiments./{acr, pend, cart}.sh` for training all baselines for each task respectively.
-* Results of the experiments including the simulation videos, data are in `./checkpoints` folder.
+* Run `./experiments_{acr, pend, cart}.sh` for training all baselines for each task respectively.
+* Results of the experiments including the simulation videos, data will be then saved in `./checkpoints` folder.
 
 ## Configuration
 Configuration files for each environment are located in ```feature4irl/cfg/```.
