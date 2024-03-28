@@ -2,8 +2,8 @@ from abc import ABCMeta
 from abc import abstractmethod
 
 from stable_baselines3.common.env_util import make_vec_env
-from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecEnv
 from feature4irl.envs.wrappers import *
+
 
 class BaseAlgo(object, metaclass=ABCMeta):
     """Abstract agent class."""
@@ -24,7 +24,6 @@ class BaseAlgo(object, metaclass=ABCMeta):
         return envs
 
     def create_agent(self, use_init_params):
-
         if self.cfg["agent_name"] == "sb_ppo":
             from feature4irl.agents.sb3_ppo import PPOAgent
 

@@ -1,13 +1,10 @@
 import torch
 import numpy as np
-import gymnasium as gym
-import copy
 from .feature_select import select_feat_extractor
 
 
 def generate_trajectories(cfg, policy, env, seed):
 
-    # env = copy.deepcopy(env)
     samples_per_initial_state = cfg["samples_per_state"]
 
     trajectories_obs = []
@@ -50,7 +47,6 @@ def find_feature_expectations(cfg, trajectories, steps):
 
     for i, states in enumerate(trajectories):
 
-        # import pdb; pdb.set_trace()
         # select feature extractor
         features = select_feat_extractor(env_name, states, cfg)  # phi(s)
         features_discounted = features * (gamma ** steps[i])  # phi(s) * (gamma ** time)

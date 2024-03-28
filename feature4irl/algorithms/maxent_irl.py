@@ -1,11 +1,9 @@
 import os
 import numpy as np
 import random
-import torch
 
 import wandb
 import csv
-import copy
 import ot
 from sklearn.preprocessing import RobustScaler
 
@@ -54,11 +52,12 @@ class ContMaxEntIRL(BaseAlgo):
 
             with open(f"checkpoints/{self.exp_name}/readme.txt", "w") as f:
                 f.write(
-                    f'This run uses the saved model from {self.cfg["path_to_expert"]}'
+                    "This run uses the saved model from "
+                    + f"{self.cfg['path_to_expert']}"
                 )
 
         else:
-            self.expert.learn(logname=f"Expert")
+            self.expert.learn(logname="Expert")
             self.expert.save(f"checkpoints/{self.exp_name}/files/ppo_expert")
 
         if self.cfg["testing"]:
@@ -100,8 +99,8 @@ class ContMaxEntIRL(BaseAlgo):
             )
 
         print("Expert  data  ", expert_trajs.shape, expert_ts.shape)
-        print(f"Expert mean  ", np.mean(expert_trajs, axis=0).tolist())
-        print(f"Expert  std  ", np.std(expert_trajs, axis=0).tolist())
+        # print("Expert mean  ", np.mean(expert_trajs, axis=0).tolist())
+        # print("Expert  std  ", np.std(expert_trajs, axis=0).tolist())
 
         robust_scaler = RobustScaler()
         robust_scaler.fit(expert_trajs)
@@ -137,12 +136,10 @@ class ContMaxEntIRL(BaseAlgo):
         alpha_path = f"checkpoints/{self.exp_name}/files/alpha_temp"
         np.save(alpha_path, self.alpha)
 
-        print("....  IRL training ")
+        print("\n....  IRL training ")
         feature_expectations_expert = find_feature_expectations(
             self.cfg, expert_trajs, expert_ts
         )
-
-        import datetime
 
         # train
         for epoch in range(1, epochs + 1):
@@ -172,14 +169,17 @@ class ContMaxEntIRL(BaseAlgo):
             expert_size = int(expert_trajs.shape[0] * ratio)
             agent_size = int(agent_trajs.shape[0] * ratio)
 
-            try:
-                M = ot.dist(expert_trajs[:expert_size, :], agent_trajs[:agent_size, :])
-                dist = ot.emd2([], [], M, numItermax=100000, numThreads="max")
-            except Exception as e:
-                dist = -10
+            dist = -10
+
+            # try:
+            #     M = ot.dist(expert_trajs[:expert_size, :], agent_trajs[:agent_size, :])
+            #     dist = ot.emd2([], [], M, numItermax=100000, numThreads="max")
+            # except Exception as e:
+            #     print(f"Error : {e}")
+            #     continue
 
             # # # log
-            if epoch % self.cfg["log_freq"] == 0 and self.cfg["track"] == True:
+            if epoch % self.cfg["log_freq"] == 0 and self.cfg["track"]:
                 self.log_data(epoch, self.alpha, grad, dist, lr)
 
             # update
@@ -256,10 +256,10 @@ class ContMaxEntIRL(BaseAlgo):
             self.run.log({f"grad/{feat_keys[ind]}": feat}, commit=False)
 
         # dist
-        self.run.log({f"dist/wasserstein_distance": dist}, commit=False)
+        self.run.log({"dist/wasserstein_distance": dist}, commit=False)
 
         # lr
-        self.run.log({f"lr/lr": lr}, commit=False)
+        self.run.log({"lr/lr": lr}, commit=False)
 
     def configure_experiment(self):
         # start wandb, create folders
@@ -280,7 +280,7 @@ class ContMaxEntIRL(BaseAlgo):
 
             self.run = wandb.init(
                 project=wandb_project_name,
-                entity=wandb_entity,
+                # entity=wandb_entity,
                 # reinit=False,
                 group=group_name,
                 sync_tensorboard=self.cfg["sync_tb"],
@@ -307,7 +307,8 @@ class ContMaxEntIRL(BaseAlgo):
             os.makedirs(f"checkpoints/{self.exp_name}/files/")
 
         print(
-            f'\n\n ---- Started ... |{self.exp_name} | method - {self.cfg["feats_method"]} | bc_only - {self.cfg["bc_only"]}\n'
+            f'\n\n ---- Started ... |{self.exp_name} | method - {self.cfg["feats_method"]}'
+            f' | bc_only - {self.cfg["bc_only"]}\n'
         )
 
     def save_experiment_params(self, objective, expert_res, agent_res):

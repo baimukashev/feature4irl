@@ -14,6 +14,26 @@ wrapper_kwargs: {
 agent_name: sb_ppo
 scaler_params: None
 
+# ppo
+n_envs: 4
+batch_size: 128
+n_cpu: ${n_envs}
+policy_type: "MlpPolicy"
+# pi_size: 128
+vf_size: ${pi_size}
+policy_kwargs: 
+n_steps: 256
+n_epochs: 4
+verbose: 0
+gae_lambda: 0.94
+tensorboard_log: 'checkpoints/${exp_name}/logs/'
+use_sde: False
+sde_sample_freq: 4
+clip_range: 0.3
+max_grad_norm: 0.9
+vf_coef: 0.95
+
+
 # reset for expert only 
 init_total_timesteps: 0.5e6
 init_learning_rate: 2.5e-4
@@ -47,6 +67,7 @@ n_trajs: 100
 
 samples_per_state: 1
 
+# HYPERPARAMETER SEARCH
 
 # ## sweep parameters
 # hydra:
@@ -62,22 +83,4 @@ samples_per_state: 1
       # n_trajs: choice(200, 300, 500)
 
 
-# ppo
-n_envs: 4
-batch_size: 128
-n_cpu: ${n_envs}
-policy_type: "MlpPolicy"
-# pi_size: 128
-vf_size: ${pi_size}
-policy_kwargs: 
-n_steps: 256
-n_epochs: 4
-verbose: 0
-gae_lambda: 0.94
-tensorboard_log: 'checkpoints/${exp_name}/logs/'
-use_sde: False
-sde_sample_freq: 4
-clip_range: 0.3
-max_grad_norm: 0.9
-vf_coef: 0.95
 

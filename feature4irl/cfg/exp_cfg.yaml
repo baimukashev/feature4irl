@@ -9,16 +9,6 @@ defaults:
 #     # - override hydra/hydra_logging: disabled
 #     # - override hydra/job_logging: disabled
 
-# hydra:
-#   sweeper:
-#     sampler:
-#       seed: 123
-#     direction: min
-#     study_name: main
-#     storage: null
-#     n_trials: 20     # total sweep runs
-#     n_jobs: 4
-
 
 env_name: ${env_name}
 agent_name: ${agent_name}
@@ -30,9 +20,7 @@ seed: 777
 device: 'cuda'
 bc_only: False
 fast: False
-
 ratio_divergence: 0.1
-
 
 # training: True
 log_freq : 1
@@ -51,7 +39,7 @@ normalize_feats: False
 # wandb
 track: True
 use_wandb: True 
-wandb_entity: 'baimukashev'
+wandb_entity: 'None'
 wandb_project_name: feat4irl___${env_name}
 group_name: default
 notes: ''
@@ -61,10 +49,21 @@ render: False
 # parallelization
 n_threads: 10       # joblib data collection
 
-
 run_suffix: 0
 results_path: ''
 hydra_config: ''
+
+# HYPERPARAMETER SEARCH
+
+# hydra:
+#   sweeper:
+#     sampler:
+#       seed: 123
+#     direction: min
+#     study_name: main
+#     storage: null
+#     n_trials: 20     # total sweep runs
+#     n_jobs: 4
 
 #   launcher:
 #     ray:

@@ -1,10 +1,6 @@
-import os
-
-import copy
-import gymnasium as gym
-import numpy as np
 import torch
-import matplotlib.pyplot as plt
+import numpy as np
+import gymnasium as gym
 
 
 class Agent:
@@ -38,13 +34,10 @@ class Agent:
     ):
 
         rewards = []
-
-        # env = test_env.envs[0]
         model = self.policy
-
         all_feats = []
 
-        for idx in range(1):
+        for idx in range(self.cfg["test_num"]):
 
             env = test_env.envs[0]
 
@@ -57,6 +50,10 @@ class Agent:
                 env.metadata["offscreen_rendering"] = True
 
                 video_path = f"{video_dir}_videos/seed_{seed}_+_{idx}"
+
+                env = gym.wrappers.RecordVideo(
+                    env, video_path, disable_logger=True, episode_trigger=lambda e: True
+                )
 
             ind = 0
             done = False

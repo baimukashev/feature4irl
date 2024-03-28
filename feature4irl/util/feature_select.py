@@ -1,6 +1,5 @@
 import numpy as np
 from itertools import combinations_with_replacement
-from sklearn.preprocessing import RobustScaler
 
 
 def select_feat_extractor(env_name, states, cfg):
@@ -13,24 +12,6 @@ def select_feat_extractor(env_name, states, cfg):
 
     elif env_name == "Acrobot-v1":
         feature_expectations = acrobot_feat_extract(states, cfg)
-
-    # elif env_name== 'Reacher-v4':
-    #     feature_expectations = reacher_feat_extract(states, cfg)
-
-    # elif env_name== 'Hopper-v4':
-    #     feature_expectations = hopper_feat_extract(states, cfg)
-
-    # elif env_name== 'highway-fast-v0':
-    #     feature_expectations = high_feat_extract(states, cfg)
-
-    # elif env_name== 'LunarLander-v2':
-    #     feature_expectations = lander_feat_extract(states, cfg)
-
-    # elif env_name== 'Swimmer-v4':
-    #     feature_expectations = hopper_feat_extract(states, cfg)
-
-    # elif env_name== 'InvertedPendulum-v4':
-    #     feature_expectations = hopper_feat_extract(states, cfg)
 
     else:
         raise NotImplementedError

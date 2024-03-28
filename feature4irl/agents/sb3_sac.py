@@ -1,9 +1,5 @@
 import torch
-import numpy as np
-import gymnasium as gym
-
 from stable_baselines3.sac import SAC
-
 from feature4irl.agents.base_agent import Agent
 
 

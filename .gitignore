@@ -1,0 +1,6 @@
+wandb/
+checkpoints/
+**/__pycache__/
+multirun/
+outputs/
+resutls/

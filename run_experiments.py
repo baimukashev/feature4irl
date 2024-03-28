@@ -3,15 +3,14 @@ Run max-ent inverse RL experiment for continuous env.
 """
 
 import os
-
-os.environ["NUMEXPR_MAX_THREADS"] = "128"
-os.environ["WANDB_SILENT"] = "true"
-# os.environ.get("LD_LIBRARY_PATH", "")
-
 import random
 import numpy as np
 import torch
 import hydra
+
+os.environ["NUMEXPR_MAX_THREADS"] = "128"
+os.environ["WANDB_SILENT"] = "true"
+# os.environ.get("LD_LIBRARY_PATH", "")
 
 
 @hydra.main(config_path="feature4irl/cfg", config_name="exp_cfg", version_base=None)

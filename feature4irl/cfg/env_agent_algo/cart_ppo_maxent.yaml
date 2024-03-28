@@ -67,6 +67,7 @@ epochs: 100
 n_trajs: 200
 samples_per_state: 1
 
+# HYPERPARAMETER SEARCH
 
 # sweep parameters
 # hydra:

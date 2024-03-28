@@ -65,9 +65,8 @@ len_traj: 200
 n_trajs: 200
 samples_per_state: 1
 
-# MAKE sure init params ON for IRL       
-# self.agent = self.create_agent(use_init_params=True)
 
+# HYPERPARAMETER SEARCH
 # sweep parameters
 # hydra:
 #   sweeper:
