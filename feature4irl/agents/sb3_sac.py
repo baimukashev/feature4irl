@@ -51,13 +51,13 @@ class SACAgent(Agent):
             self.policy.max_grad_norm = self.configs["max_grad_norm"]
 
         if self.configs.get("vf_coef"):
-            self.policy.max_grad_norm = self.configs["vf_coef"]
+            self.policy.vf_coef = self.configs["vf_coef"]
 
         if self.configs.get("ent_coef"):
-            self.policy.max_grad_norm = self.configs["ent_coef"]
+            self.policy.ent_coef = self.configs["ent_coef"]
 
         if self.configs.get("clip_range"):
-            self.policy.max_grad_norm = self.configs["clip_range"]
+            self.policy.clip_range = self.configs["clip_range"]
 
     def act(self, obs):
         action, *_ = self.policy.predict(torch.tensor(obs).float())
