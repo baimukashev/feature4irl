@@ -1,6 +1,6 @@
 wandb/
 checkpoints/
-**/__pycache__/
+**/__pycache__/c
 multirun/
 outputs/
 resutls/

@@ -12,9 +12,7 @@ wrapper_kwargs: {
 
 # Agent parameters
 agent_name: sb_sac
-scaler_params: None
 
-#We recommend using a `batch_size` that is a factor of `n_steps * n_envs`.
 n_envs: 4
 batch_size: 64
 n_cpu: ${n_envs}
@@ -35,13 +33,6 @@ init_total_timesteps: 8e4 # 1.5e5
 init_learning_rate: 1e-3
 init_gamma: 0.9
 init_pi_size: 64
-
-# best params
-# init_total_timesteps: 200k
-# init_learning_rate: 1e-3 # 0.0005 - 0.001
-# init_gamma: 0.92
-# init_pi_size: 64 128
-
 learning_rate: ${init_learning_rate}
 total_timesteps: ${init_total_timesteps}
 gamma: ${init_gamma}
@@ -52,19 +43,15 @@ path_to_data : 'results/Pendulum-v1___group_test_run1/run_scarlet-glade-713/file
 
 # Algo parameters
 algo_name: maxent
-
 d_states: 2
-
 lr : 0.5
 alpha_decay: 0.97
 gamma_feat: 0.9
 epochs: 100
-
 len_traj: 200
-
 n_trajs: 200
 samples_per_state: 1
-
+scaler_params: None
 
 # HYPERPARAMETER SEARCH
 # sweep parameters

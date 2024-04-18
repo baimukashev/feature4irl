@@ -9,7 +9,6 @@ from feature4irl.util.feature_gen import select_feat_extractor
 ###################################################
 class TransformRewardLearnedCont(gym.RewardWrapper):
     """Transform the reward via an arbitrary function."""
-
     def __init__(self, env: gym.Env, alpha=None, configs=None):
         """Initialize the :class:`TransformReward` wrapper with an environment
         and reward transform function :attr:`f`.
@@ -29,15 +28,12 @@ class TransformRewardLearnedCont(gym.RewardWrapper):
         Returns:
             The transformed reward
         """
-
         state = self.temp_state
-
         env_name = self.spec.id
-
-        feature_expectations = select_feat_extractor(env_name, state, cfg=self.configs)
-
+        feature_expectations = select_feat_extractor(env_name,
+                                                     state,
+                                                     cfg=self.configs)
         reward = feature_expectations.dot(self.alpha)
-
         return reward
 
 
@@ -48,13 +44,10 @@ class StoreObservation(gym.ObservationWrapper):
             env: The environment to apply the wrapper
             shape: The shape of the resized observations
         """
-
         super().__init__(env)
 
     def observation(self, observation):
-
         self.temp_state = observation
-
         return observation
 
 
@@ -65,118 +58,47 @@ class StoreAction(gym.ActionWrapper):
             env: The environment to apply the wrapper
             shape: The shape of the resized observations
         """
-
         super().__init__(env)
 
     def action(self, action):
-
         self.temp_action = action
-
         return action
 
 
-##################################################
-#      PendulumWrapper
-###################################################
-class PendulumWrapper(gym.Wrapper[np.ndarray, int, np.ndarray, int]):
+class BaseEnvWrapper(gym.Wrapper[np.ndarray, int, np.ndarray, int]):
     """
-    Wrapper for pendulum env
+    Base wrapper to handle observation storage and conditional reward transformation.
     """
-
-    def __init__(
-        self,
-        env: gym.Env,
-        reward_path=None,
-        env_name=None,
-        configs=None,
-        scaler_path=None,
-    ) -> None:
-
-        env = StoreObservation(env)
-
-        if reward_path == "None":
-            pass
+    def __init__(self, env: gym.Env, reward_path: Optional[str] = None, scaler_path: Optional[str] = None, configs: Optional[dict] = None):
+        # Initialize base environment
+        super().__init__(StoreObservation(env))
+        
+        # Handle reward transformation if paths and configs are provided
+        if reward_path and reward_path != 'None' and scaler_path and configs:
+            alpha = np.load(reward_path + '.npy')
+            scaler_params = np.load(scaler_path + '.npy', allow_pickle=True)
+            configs['scaler_params'] = scaler_params.tolist()
+            self.env = TransformRewardLearnedCont(self.env, alpha, configs)
         elif reward_path is None:
-            raise Exception("reward path cannnot be None")
-        else:
-            alpha = np.load(reward_path + ".npy")
-            scaler_params = np.load(scaler_path + ".npy", allow_pickle=True)
+            raise ValueError('reward path cannot be None if specified')
 
-            if configs is None:
-                raise Exception("configs cannnot be None")
-            else:
-                configs["scaler_params"] = scaler_params.tolist()
-                env = TransformRewardLearnedCont(env, alpha, configs)
-
-        super().__init__(env)
-
-
-##################################################
-#      CartPoleWrapper
-###################################################
-class CartPoleWrapper(gym.Wrapper[np.ndarray, int, np.ndarray, int]):
+class PendulumWrapper(BaseEnvWrapper):
     """
-    Wrapper for pendulum env
+    Specific wrapper for the Pendulum environment.
     """
+    def __init__(self, env, reward_path=None, env_name=None, scaler_path=None, configs=None):
+        super().__init__(env, reward_path, scaler_path, configs)
 
-    def __init__(
-        self,
-        env: gym.Env,
-        reward_path=None,
-        env_name=None,
-        configs=None,
-        scaler_path=None,
-    ) -> None:
-
-        env = StoreObservation(env)
-
-        if reward_path == "None":
-            pass
-        elif reward_path is None:
-            raise Exception("reward path cannnot be None")
-        else:
-            alpha = np.load(reward_path + ".npy")
-            scaler_params = np.load(scaler_path + ".npy", allow_pickle=True)
-            if configs is None:
-                raise Exception("configs cannnot be None")
-            else:
-                configs["scaler_params"] = scaler_params.tolist()
-                env = TransformRewardLearnedCont(env, alpha, configs)
-
-        super().__init__(env)
-
-
-##################################################
-#      ACROBOTWrapper
-###################################################
-class AcrobotWrapper(gym.Wrapper[np.ndarray, int, np.ndarray, int]):
+class CartPoleWrapper(BaseEnvWrapper):
     """
-    Wrapper for pendulum env
+    Specific wrapper for the CartPole environment.
     """
-
-    def __init__(
-        self,
-        env: gym.Env,
-        reward_path=None,
-        env_name=None,
-        configs=None,
-        scaler_path=None,
-    ) -> None:
-
-        env = StoreObservation(env)
-
-        if reward_path == "None":
-            pass
-        elif reward_path is None:
-            raise Exception("reward path cannnot be None")
-        else:
-            alpha = np.load(reward_path + ".npy")
-            scaler_params = np.load(scaler_path + ".npy", allow_pickle=True)
-
-            if configs is None:
-                raise Exception("configs cannnot be None")
-            else:
-                configs["scaler_params"] = scaler_params.tolist()
-                env = TransformRewardLearnedCont(env, alpha, configs)
-
-        super().__init__(env)
+    def __init__(self, env, reward_path=None, env_name=None, scaler_path=None, configs=None):
+        super().__init__(env, reward_path, scaler_path, configs)
+        
+class AcrobotWrapper(BaseEnvWrapper):
+    """
+    Specific wrapper for the CartPole environment.
+    """
+    def __init__(self, env, reward_path=None, env_name=None, scaler_path=None, configs=None):
+        super().__init__(env, reward_path, scaler_path, configs)

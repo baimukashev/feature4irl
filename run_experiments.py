@@ -10,13 +10,11 @@ import hydra
 
 os.environ["NUMEXPR_MAX_THREADS"] = "128"
 os.environ["WANDB_SILENT"] = "true"
-# os.environ.get("LD_LIBRARY_PATH", "")
 
-
-@hydra.main(config_path="feature4irl/cfg", config_name="exp_cfg", version_base=None)
+@hydra.main(config_path="feature4irl/cfg",
+            config_name="exp_cfg",
+            version_base=None)
 def main(cfg):
-
-    # TRY NOT TO MODIFY: seeding
     seed = cfg["seed"]
     np.random.seed(seed)
     random.seed(seed)
@@ -30,7 +28,6 @@ def main(cfg):
         algo = ContMaxEntIRL(cfg=cfg)
     else:
         raise NotImplementedError
-
     return algo.train()
 
 

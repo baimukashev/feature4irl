@@ -2,14 +2,13 @@ from abc import ABCMeta
 from abc import abstractmethod
 
 from stable_baselines3.common.env_util import make_vec_env
+from feature4irl.agents.sb3_ppo import PPOAgent, SACAgent
 from feature4irl.envs.wrappers import *
 
 
 class BaseAlgo(object, metaclass=ABCMeta):
     """Abstract agent class."""
-
     def __init__(self, cfg) -> None:
-
         self.cfg = cfg
         self.cfg["wrapper_kwargs"]["configs"] = cfg
 
@@ -25,13 +24,13 @@ class BaseAlgo(object, metaclass=ABCMeta):
 
     def create_agent(self, use_init_params):
         if self.cfg["agent_name"] == "sb_ppo":
-            from feature4irl.agents.sb3_ppo import PPOAgent
-
-            agent = PPOAgent(self.cfg, env=self.env, use_init_params=use_init_params)
+            agent = PPOAgent(self.cfg,
+                             env=self.env,
+                             use_init_params=use_init_params)
         elif self.cfg["agent_name"] == "sb_sac":
-            from feature4irl.agents.sb3_sac import SACAgent
-
-            agent = SACAgent(self.cfg, env=self.env, use_init_params=use_init_params)
+            agent = SACAgent(self.cfg,
+                             env=self.env,
+                             use_init_params=use_init_params)
         else:
             raise NotImplementedError
 

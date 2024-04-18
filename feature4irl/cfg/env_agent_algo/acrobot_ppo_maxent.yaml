@@ -12,7 +12,6 @@ wrapper_kwargs: {
 
 # Agent parameters
 agent_name: sb_ppo
-scaler_params: None
 
 # ppo
 n_envs: 4
@@ -33,52 +32,42 @@ clip_range: 0.3
 max_grad_norm: 0.9
 vf_coef: 0.95
 
-
 # reset for expert only 
 init_total_timesteps: 0.5e6
 init_learning_rate: 2.5e-4
 init_gamma: 0.99
 init_pi_size: 400
-
 learning_rate: ${init_learning_rate}
 total_timesteps: ${init_total_timesteps}
 gamma: ${init_gamma}
 pi_size: ${init_pi_size}
-
-
 path_to_expert : 'results/Acrobot-v1___group_test_run2/run_splendid-blaze-28/files/ppo_expert'
 path_to_data : 'results/Acrobot-v1___group_test_run2/run_splendid-blaze-28/files/'
 
-
 # Algo parameters
 algo_name: maxent
-
 d_states: 6
 feats_selected: []
 feats_method: 'proposed' # random
-
 lr : 0.5
 gamma_feat: 0.95   #0.9
 epochs: 100
 alpha_decay: 0.97
-
 len_traj: 500
 n_trajs: 100
-
 samples_per_state: 1
+scaler_params: None
 
 # HYPERPARAMETER SEARCH
-
 # ## sweep parameters
 # hydra:
 #   sweeper:
 #     params:
       # lr: range(0.1, 0.4, 0.1)
       # gamma_feat: range(0.88, 0.92, 0.02)
-
       # learning_rate:  choice(1e-4, 2e-4, 3e-4)
       # gamma: range(0.8, 1.0, 0.02)
-      # #total_timesteps: choice(0.6e6, 1e6, 1.5e6)
+      # total_timesteps: choice(0.6e6, 1e6, 1.5e6)
       # pi_size:  choice(128, 256)
       # n_trajs: choice(200, 300, 500)
 

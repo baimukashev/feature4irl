@@ -9,7 +9,6 @@ defaults:
 #     # - override hydra/hydra_logging: disabled
 #     # - override hydra/job_logging: disabled
 
-
 env_name: ${env_name}
 agent_name: ${agent_name}
 algo_name: ${algo_name}
@@ -31,7 +30,6 @@ test_num: 10
 
 load_expert: True
 load_data: True
-
 feats_selected: []
 feats_method: 'proposed' # random # first # all # manual # other
 normalize_feats: False
@@ -48,13 +46,11 @@ render: False
 
 # parallelization
 n_threads: 10       # joblib data collection
-
 run_suffix: 0
 results_path: ''
 hydra_config: ''
 
 # HYPERPARAMETER SEARCH
-
 # hydra:
 #   sweeper:
 #     sampler:
@@ -70,31 +66,3 @@ hydra_config: ''
 #       init:
 #         num_cpus: 5  # to each
 #         num_gpus: 2
-
-
-    # max_failure_rate: 0.0
-
-
-# submitit
-# hydra:
-  # launcher:
-  #   timeout_min: 30 # 3000
-  #   cpus_per_task: 12
-  #   gpus_per_node: 0
-  #   tasks_per_node: 2
-  #   mem_gb: 64
-  #   nodes: 1
-
-#   launcher:
-#     ray:
-#       init:
-        # num_cpus: 12  # to each
-        # num_gpus: 0
-
-  # output_subdir: null  
-  # run:  
-  #   dir: .
-                                                                                                      
-
-                           
-                                                              
