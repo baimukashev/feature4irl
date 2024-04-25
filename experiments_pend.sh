@@ -4,6 +4,15 @@
 
 python run_experiments.py \
   env_agent_algo=pend_ppo_maxent \
+  group_name=proposed_exp \
+  notes='proposed' \
+  d_states=3 \
+  lr=0.2 \
+  normalize_feats=False \
+  feats_method=proposed
+
+python run_experiments.py \
+  env_agent_algo=pend_ppo_maxent \
   group_name=all_exp \
   notes='all states' \
   d_states=9 \
@@ -29,14 +38,7 @@ python run_experiments.py \
   normalize_feats=False \
   feats_method=random
 
-python run_experiments.py \
-  env_agent_algo=pend_ppo_maxent \
-  group_name=proposed_exp \
-  notes='proposed' \
-  d_states=3 \
-  lr=0.2 \
-  normalize_feats=False \
-  feats_method=proposed
+
 
 python run_experiments.py \
   env_agent_algo=pend_ppo_maxent \

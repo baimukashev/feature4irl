@@ -69,7 +69,7 @@ class BaseEnvWrapper(gym.Wrapper[np.ndarray, int, np.ndarray, int]):
     """
     Base wrapper to handle observation storage and conditional reward transformation.
     """
-    def __init__(self, env: gym.Env, reward_path: Optional[str] = None, scaler_path: Optional[str] = None, configs: Optional[dict] = None):
+    def __init__(self, env: gym.Env, reward_path=None, scaler_path=None, configs=None):
         # Initialize base environment
         super().__init__(StoreObservation(env))
         

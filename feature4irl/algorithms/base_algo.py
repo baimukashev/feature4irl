@@ -2,7 +2,8 @@ from abc import ABCMeta
 from abc import abstractmethod
 
 from stable_baselines3.common.env_util import make_vec_env
-from feature4irl.agents.sb3_ppo import PPOAgent, SACAgent
+from feature4irl.agents.sb3_ppo import PPOAgent
+from feature4irl.agents.sb3_sac import SACAgent
 from feature4irl.envs.wrappers import *
 
 
