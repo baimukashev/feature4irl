@@ -16,3 +16,14 @@ This repository contains the source code and data for the paper [Automated Featu
 
 ## Configuration
 Configuration files for each environment are located in ```feature4irl/cfg/```.
+
+## Citation
+@misc{baimukashev2024automatedfeatureselectioninverse,
+      title={Automated Feature Selection for Inverse Reinforcement Learning}, 
+      author={Daulet Baimukashev and Gokhan Alcan and Ville Kyrki},
+      year={2024},
+      eprint={2403.15079},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2403.15079}, 
+}
